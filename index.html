@@ -20,7 +20,7 @@
       <h2 class="text-black font-bold text-center text-3xl">Momen To-Do App</h2>
     </header>
 
-    <main class="w-2/3 mx-auto bg-[#fff] mt-10">
+    <main class="w-2/3 mx-auto bg-[#fff] mt-10 overflow-y-scroll pb-20">
       <section class="p-4 text-center">
         <input
           type="text"
@@ -36,25 +36,27 @@
 
       <section>
         <div
-          class="mt-5 flex justify-between text-center w-3/4 mx-auto font-semibold text-xl"
+          class="mt-5 flex justify-between text-center w-4/5 mx-auto font-semibold text-xl"
         >
           <span>Name</span>
           <span>Task</span>
           <span>Date</span>
           <span>Status</span>
           <span>Delete</span>
+          <span>Edit</span>
         </div>
 
-        <ul>
-          <div
-            class="mt-5 flex justify-between text-center w-3/4 mx-auto font-semibold text-xl"
+        <ul class="task-container">
+          <!-- <div
+            class="mt-5 flex justify-between text-center w-4/5 mx-auto font-semibold text-xl gap-10"
           >
             <li>1</li>
             <li>sleep</li>
             <li>12/10/11</li>
-            <li>like</li>
-            <li>delete btn</li>
-          </div>
+            <li><i class="fa-solid fa-check"></i></li>
+            <li><i class="fa-solid fa-trash"></i></li>
+            <li><i class="fa-solid fa-pen-to-square"></i></li>
+          </div> -->
         </ul>
       </section>
     </main>

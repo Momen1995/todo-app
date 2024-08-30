@@ -4,22 +4,38 @@ const submitBtn = document.querySelector("#submit-btn");
 let inputText = document.querySelector("#input-text");
 const taskContainer = document.querySelector(".task-container");
 const taskListArray = [];
+let editingTaskId = null;
 
 submitBtn.addEventListener("click", function () {
-  let input = inputText.value;
-  const dates = new Date();
-  const taskTime = new Intl.DateTimeFormat("en-US").format(dates);
+  let input = inputText.value.trim();
 
-  const taskObj = {
-    id: taskListArray.length + 1,
-    input: input,
-    taskTime: taskTime,
-  };
+  if (input === "") return;
 
-  taskListArray.push(taskObj);
-  console.log(taskListArray);
+  if (editingTaskId !== null) {
+    const taskIndex = taskListArray.findIndex(
+      (task) => task.id === editingTaskId
+    );
+
+    if (taskIndex !== -1) {
+      taskListArray[taskIndex].input = input;
+    }
+    editingTaskId = null;
+
+  } else {
+    const dates = new Date();
+    const taskTime = new Intl.DateTimeFormat("en-US").format(dates);
+
+    const taskObj = {
+      id: taskListArray.length + 1,
+      input: input,
+      taskTime: taskTime,
+    };
+
+    taskListArray.push(taskObj);
+    console.log(taskListArray);
+  }
+
   inputText.value = "";
-
   renderTask();
 });
 
@@ -38,7 +54,7 @@ function renderTask() {
         <p>${task.taskTime}</p>
         <p><i class="fa-solid fa-check"></i></p>
         <p><i class="fa-solid fa-trash delete-icon"></i></p>
-        <p><i class="fa-solid fa-pen-to-square"></i></p>
+        <p><i class="fa-solid fa-pen-to-square edit-icon"></i></p>
       </div>
     `;
 
@@ -46,19 +62,25 @@ function renderTask() {
   });
 }
 
-//delete task
-taskContainer.addEventListener("click",function(e){
-  if(e.target.classList.contains("delete-icon")){
+//delete task and edit task
+taskContainer.addEventListener("click", function (e) {
+  if (e.target.classList.contains("delete-icon")) {
     const taskElement = e.target.closest(".task-list");
     const taskId = Number(taskElement.dataset.id);
-    
-    const taskIndex = taskListArray.find(task => task.id === taskId);
-    taskListArray.splice(taskIndex,1)
-    renderTask()
+
+    const taskIndex = taskListArray.find((task) => task.id === taskId);
+    taskListArray.splice(taskIndex, 1);
+    renderTask();
   }
-})
 
+  if (e.target.classList.contains("edit-icon")) {
+    const taskElement = e.target.closest(".task-list");
+    const taskId = Number(taskElement.dataset.id);
 
-
-
-
+    const taskIndex = taskListArray.findIndex((task) => task.id === taskId);
+    if (taskIndex !== -1) {
+      inputText.value = taskListArray[taskIndex].input;
+      editingTaskId = taskId;
+    }
+  }
+});

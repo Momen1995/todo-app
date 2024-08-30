@@ -3,6 +3,7 @@
 const submitBtn = document.querySelector("#submit-btn");
 let inputText = document.querySelector("#input-text");
 const taskContainer = document.querySelector(".task-container");
+const clearBtn = document.querySelector("#clear-all");
 const taskListArray = [];
 let editingTaskId = null;
 
@@ -84,3 +85,10 @@ taskContainer.addEventListener("click", function (e) {
     }
   }
 });
+
+
+//clear all task
+clearBtn.addEventListener("click",function(){
+  taskListArray.splice(0)
+  renderTask()
+})

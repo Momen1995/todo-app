@@ -7,8 +7,13 @@
     <link rel="stylesheet" href="main.css" />
 
     <!-- font awesome cdn -->
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body class="bg-slate-200 border-none outline-0">
     <header class="w-2/3 mx-auto py-6 mt-10 bg-[#fff]">
@@ -17,14 +22,44 @@
 
     <main class="w-2/3 mx-auto bg-[#fff] mt-10">
       <section class="p-4 text-center">
-        <input type="text" placeholder="type here" class="border-b-2 border-slate-300 w-1/2 text-slate-800 text-xl py-2">
-        <i class="fa-solid fa-pen bg-teal-600 p-3 text-xl rounded ml-[-6px]"></i>
+        <input
+          type="text"
+          placeholder="type here"
+          class="border-b-2 border-slate-300 w-1/2 text-slate-800 text-xl p-2"
+          id="input-text"
+        />
+        <i
+          class="fa-solid fa-pen bg-teal-600 p-3 text-xl rounded ml-[-6px]"
+          id="submit-btn"
+        ></i>
       </section>
 
-      <section></section>
+      <section>
+        <div
+          class="mt-5 flex justify-between text-center w-3/4 mx-auto font-semibold text-xl"
+        >
+          <span>Name</span>
+          <span>Task</span>
+          <span>Date</span>
+          <span>Status</span>
+          <span>Delete</span>
+        </div>
+
+        <ul>
+          <div
+            class="mt-5 flex justify-between text-center w-3/4 mx-auto font-semibold text-xl"
+          >
+            <li>1</li>
+            <li>sleep</li>
+            <li>12/10/11</li>
+            <li>like</li>
+            <li>delete btn</li>
+          </div>
+        </ul>
+      </section>
     </main>
 
     <!-- js link -->
-     <script src="./js/main.js"></script>
+    <script src="./js/main.js"></script>
   </body>
 </html>

@@ -62,7 +62,7 @@ function renderTask() {
   taskListArray.forEach((task) => {
     const html = `
       <div
-        class="mt-5 text-left text-[16px] gap-10 task-list text-[#fff] bg-teal-800 rounded-xl mb-5 w-8/12 mx-auto "
+        class=" text-left text-[16px] gap-10 task-list text-[#fff] bg-teal-800 rounded-xl mb-5 w-8/12 mx-auto "
         data-id="${task.id}"
       >
         <div>

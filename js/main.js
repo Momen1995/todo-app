@@ -44,7 +44,9 @@ submitBtn.addEventListener("click", function () {
   }
 
   inputText.value = "";
-  renderTask();
+  setTimeout(() => {
+    renderTask();
+  }, 1000);
 });
 
 // Render task
@@ -60,12 +62,12 @@ function renderTask() {
   taskListArray.forEach((task) => {
     const html = `
       <div
-        class="mt-5 flex justify-between items-center text-left  text-xl gap-10 task-list  text-[#fff] bg-teal-800  rounded mb-5 w-8/12 mx-auto"
+        class="mt-5 text-left text-[16px] gap-10 task-list text-[#fff] bg-teal-800 rounded-xl mb-5 w-8/12 mx-auto "
         data-id="${task.id}"
       >
         <div>
-          <h3>${task.input}</h3>
-          <p>${task.times}, ${task.taskDate}</p>
+          <h3 class="text-xl">${task.input}</h3>
+          <p class="time-contain">${task.times}, ${task.taskDate}</p>
         </div>
         <p><i class="fa-solid fa-check complete-icon ${
           task.completed ? "icon-color" : ""
@@ -81,26 +83,38 @@ function renderTask() {
 
 // Delete task, edit task, and complete task event handler
 taskContainer.addEventListener("click", function (e) {
+
+  //delete task
   if (e.target.classList.contains("delete-icon")) {
     const taskElement = e.target.closest(".task-list");
     const taskId = Number(taskElement.dataset.id);
-
     const taskIndex = taskListArray.findIndex((task) => task.id === taskId);
-    taskListArray.splice(taskIndex, 1);
-    renderTask();
+
+    e.target.classList.add("pop-animation");
+    setTimeout(() => {
+      taskListArray.splice(taskIndex, 1);
+      e.target.classList.remove("pop-animation");
+      renderTask();
+    }, 1000);
   }
 
+  //edit task
   if (e.target.classList.contains("edit-icon")) {
     const taskElement = e.target.closest(".task-list");
     const taskId = Number(taskElement.dataset.id);
-
     const taskIndex = taskListArray.findIndex((task) => task.id === taskId);
-    if (taskIndex !== -1) {
-      inputText.value = taskListArray[taskIndex].input;
-      editingTaskId = taskId;
-    }
+
+    e.target.classList.add("pulse-animation");
+    setTimeout(() => {
+      if (taskIndex !== -1) {
+        inputText.value = taskListArray[taskIndex].input;
+        editingTaskId = taskId;
+      }
+      e.target.classList.remove("pulse-animation");
+    }, 1000);
   }
 
+  //complete task
   if (e.target.classList.contains("complete-icon")) {
     const taskElement = e.target.closest(".task-list");
     const taskId = Number(taskElement.dataset.id);
@@ -115,8 +129,10 @@ taskContainer.addEventListener("click", function (e) {
 
 // Clear all tasks
 clearBtn.addEventListener("click", function () {
-  taskListArray.splice(0);
-  completeTask.textContent = 0;
-  pendingTask.textContent = 0;
-  renderTask();
+  setTimeout(() => {
+    taskListArray.splice(0);
+    completeTask.textContent = 0;
+    pendingTask.textContent = 0;
+    renderTask();
+  }, 1000);
 });

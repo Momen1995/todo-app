@@ -4,6 +4,7 @@ const submitBtn = document.querySelector("#submit-btn");
 let inputText = document.querySelector("#input-text");
 const taskContainer = document.querySelector(".task-container");
 const clearBtn = document.querySelector("#clear-all");
+const totalTask = document.querySelector(".total-task");
 const taskListArray = [];
 let editingTaskId = null;
 
@@ -21,15 +22,18 @@ submitBtn.addEventListener("click", function () {
       taskListArray[taskIndex].input = input;
     }
     editingTaskId = null;
-
   } else {
     const dates = new Date();
-    const taskTime = new Intl.DateTimeFormat("en-US").format(dates);
+    const taskDate = new Intl.DateTimeFormat("en-US").format(dates);
+    const hour = dates.getHours();
+    const minute = dates.getMinutes();
+    const times = `${hour}:${minute}`;
 
     const taskObj = {
       id: taskListArray.length + 1,
       input: input,
-      taskTime: taskTime,
+      taskDate: taskDate,
+      times: times,
     };
 
     taskListArray.push(taskObj);
@@ -44,18 +48,24 @@ submitBtn.addEventListener("click", function () {
 function renderTask() {
   taskContainer.innerHTML = "";
 
+  //total task
+  let total = Number(totalTask.textContent);
+  total += 1;
+  totalTask.textContent = total;
+
   taskListArray.forEach((task, i) => {
     const html = `
       <div
-        class="mt-5 flex justify-between text-center px-10 font-semibold text-xl gap-10 task-list"
+        class="mt-5 flex justify-between items-center text-left  text-xl gap-10 task-list border-2 text-[#fff] bg-teal-800 py-2 px-3 rounded mb-5 w-8/12 mx-auto"
         data-id="${task.id}"
       >
-        <p>${task.id}</p>
+        <div>
         <h3>${task.input}</h3>
-        <p>${task.taskTime}</p>
+        <p>${task.times}, ${task.taskDate}</p>
+        </div>
         <p><i class="fa-solid fa-check"></i></p>
         <p><i class="fa-solid fa-trash delete-icon"></i></p>
-        <p><i class="fa-solid fa-pen-to-square edit-icon"></i></p>
+        <p><i class="fa-solid fa-pen-to-square edit-icon mr-3"></i></p></div>
       </div>
     `;
 
@@ -88,7 +98,7 @@ taskContainer.addEventListener("click", function (e) {
 
 
 //clear all task
-clearBtn.addEventListener("click",function(){
-  taskListArray.splice(0)
-  renderTask()
-})
+clearBtn.addEventListener("click", function () {
+  taskListArray.splice(0);
+  renderTask();
+});

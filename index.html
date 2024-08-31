@@ -16,38 +16,41 @@
     />
   </head>
   <body class="bg-slate-200 border-none outline-0">
-    <header class="w-2/3 mx-auto py-6 mt-10 bg-[#fff]">
-      <h2 class="text-black font-bold text-center text-3xl">Momen To-Do App</h2>
+    <header class="w-2/4 mx-auto py-6 mt-10 bg-teal-800 rounded">
+      <h2 class="font-bold text-center text-3xl text-[#fff]">Momen To-Do App</h2>
+      <div class="flex gap-4 justify-center text-[#fff] my-4">
+      <p class="font-bold">Total task: <span class="total-task">0</span></p>
+      <p class="font-bold">,Completed task: <span class="completed-task"></span></p>
+      <p class="font-bold">,Painding task: <span class="pending-task"></span></p>
+      </div>
     </header>
 
-    <main class="w-2/3 mx-auto bg-[#fff] mt-10 overflow-y-scroll pb-20">
+    <main class="w-2/4 mx-auto bg-[#fff] mt-4 overflow-y-scroll pb-20 rounded">
       <section class="p-4 text-center">
         <input
           type="text"
           placeholder="type here"
-          class="border-b-2 border-slate-300 w-1/2 text-slate-800 text-xl p-2 focus:outline-none"
+          class="border-b-2 border-teal-600 w-1/2 text-slate-800 text-xl p-2 focus:outline-none mt-2"
           id="input-text"
         />
         <i
-          class="fa-solid fa-pen bg-teal-600 p-3 text-xl rounded ml-[-6px]"
+          class="fa-solid fa-pen bg-teal-800 p-3 text-xl rounded ml-[-6px] text-[#fff]"
           id="submit-btn"
         ></i>
         <button class="bg-teal-800 py-2 px-4 rounded inline-block text-[#fff] ml-2" id="clear-all">Clear all</button>
       </section>
 
       <section>
-        <div
-          class="mt-5 flex justify-between text-center px-10 font-semibold text-2xl"
+        <!-- <div
+          class="mt-5 flex justify-between text-center font-semibold text-2xl mb-6 w-2/3 mx-auto"
         >
           <span>Name</span>
-          <span>Task</span>
-          <span>Date</span>
           <span>Status</span>
           <span>Delete</span>
           <span>Edit</span>
-        </div>
+        </div> -->
 
-        <ul class="task-container">
+        <ul class="task-container px-6">
         </ul>
       </section>
     </main>

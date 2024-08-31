@@ -5,6 +5,8 @@ let inputText = document.querySelector("#input-text");
 const taskContainer = document.querySelector(".task-container");
 const clearBtn = document.querySelector("#clear-all");
 const totalTask = document.querySelector(".total-task");
+const completeTask = document.querySelector(".completed-task");
+const pendingTask = document.querySelector(".pending-task");
 const taskListArray = [];
 let editingTaskId = null;
 
@@ -34,6 +36,7 @@ submitBtn.addEventListener("click", function () {
       input: input,
       taskDate: taskDate,
       times: times,
+      completed: false,
     };
 
     taskListArray.push(taskObj);
@@ -44,28 +47,31 @@ submitBtn.addEventListener("click", function () {
   renderTask();
 });
 
-//render task
+// Render task
 function renderTask() {
   taskContainer.innerHTML = "";
 
-  //total task
-  let total = Number(totalTask.textContent);
-  total += 1;
-  totalTask.textContent = total;
+  // Update total and pending task counts
+  totalTask.textContent = taskListArray.length;
+  const completedCount = taskListArray.filter((task) => task.completed).length;
+  completeTask.textContent = completedCount;
+  pendingTask.textContent = taskListArray.length - completedCount;
 
-  taskListArray.forEach((task, i) => {
+  taskListArray.forEach((task) => {
     const html = `
       <div
-        class="mt-5 flex justify-between items-center text-left  text-xl gap-10 task-list border-2 text-[#fff] bg-teal-800 py-2 px-3 rounded mb-5 w-8/12 mx-auto"
+        class="mt-5 flex justify-between items-center text-left  text-xl gap-10 task-list  text-[#fff] bg-teal-800  rounded mb-5 w-8/12 mx-auto"
         data-id="${task.id}"
       >
         <div>
-        <h3>${task.input}</h3>
-        <p>${task.times}, ${task.taskDate}</p>
+          <h3>${task.input}</h3>
+          <p>${task.times}, ${task.taskDate}</p>
         </div>
-        <p><i class="fa-solid fa-check"></i></p>
+        <p><i class="fa-solid fa-check complete-icon ${
+          task.completed ? "icon-color" : ""
+        }"></i></p>
         <p><i class="fa-solid fa-trash delete-icon"></i></p>
-        <p><i class="fa-solid fa-pen-to-square edit-icon mr-3"></i></p></div>
+        <p><i class="fa-solid fa-pen-to-square edit-icon mr-3"></i></p>
       </div>
     `;
 
@@ -73,13 +79,13 @@ function renderTask() {
   });
 }
 
-//delete task and edit task
+// Delete task, edit task, and complete task event handler
 taskContainer.addEventListener("click", function (e) {
   if (e.target.classList.contains("delete-icon")) {
     const taskElement = e.target.closest(".task-list");
     const taskId = Number(taskElement.dataset.id);
 
-    const taskIndex = taskListArray.find((task) => task.id === taskId);
+    const taskIndex = taskListArray.findIndex((task) => task.id === taskId);
     taskListArray.splice(taskIndex, 1);
     renderTask();
   }
@@ -94,11 +100,23 @@ taskContainer.addEventListener("click", function (e) {
       editingTaskId = taskId;
     }
   }
+
+  if (e.target.classList.contains("complete-icon")) {
+    const taskElement = e.target.closest(".task-list");
+    const taskId = Number(taskElement.dataset.id);
+
+    const taskIndex = taskListArray.findIndex((task) => task.id === taskId);
+    if (taskIndex !== -1 && !taskListArray[taskIndex].completed) {
+      taskListArray[taskIndex].completed = true;
+      renderTask();
+    }
+  }
 });
 
-
-//clear all task
+// Clear all tasks
 clearBtn.addEventListener("click", function () {
   taskListArray.splice(0);
+  completeTask.textContent = 0;
+  pendingTask.textContent = 0;
   renderTask();
 });
